@@ -12,7 +12,7 @@ deploy:
   github-token: $GITHUB_TOKEN
   keep-history: true
   local-dir: build
-  target-branch: gh
+  target-branch: gh-pages
   name: Travis
   on:
     branch: master
