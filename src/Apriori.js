@@ -14,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 export default class Apiori extends PureComponent {
 
   state = {
-    minsup: 0.3,
+    minsup: 0.5,
     transactions: [
       ["cola", "orzeszki"],
       ["piwo", "orzeszki", "pieluszki"],
@@ -35,23 +35,26 @@ export default class Apiori extends PureComponent {
 
   step1() {
     const obj = {};
-    let sum = 0;
-    const { transactions } = this.state;
+    const { transactions, minsup } = this.state;
 
     transactions.forEach(tr => {
       tr.forEach(item => {
         obj[item] = obj[item] ? obj[item] + 1 : 1;
-        sum += 1;
       })
     });
 
-   return Object.entries(obj).map(([key, value]) => (
-     <TableRow key={key}>
-       <TableCell>{key}</TableCell>
-       <TableCell>{value}</TableCell>
-       <TableCell>{(value/transactions.length).toFixed(2)} ({value} z {transactions.length})</TableCell>
-     </TableRow>
-   ))
+   return Object.entries(obj).map(([key, value]) => {
+     const sup = value/transactions.length;
+     const czy = sup >= minsup ? 'Tak' : 'Nie';
+     return (
+       <TableRow key={key}>
+         <TableCell>{key}</TableCell>
+         <TableCell>{value}</TableCell>
+         <TableCell>{(sup).toFixed(2)} ({value} z {transactions.length})</TableCell>
+         <TableCell>{czy}</TableCell>
+       </TableRow>
+     )
+   });
   }
 
   render() {
@@ -72,6 +75,7 @@ export default class Apiori extends PureComponent {
                 <TableCell>Nazwa produktu</TableCell>
                 <TableCell>Ilość wystąpień</TableCell>
                 <TableCell>Support (wsparcie)</TableCell>
+                <TableCell>Czy przechodzi</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
