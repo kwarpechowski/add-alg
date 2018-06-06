@@ -2,7 +2,7 @@
   "name": "add",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://kwarpechowski.github.io/add-alg",
   "dependencies": {
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
